@@ -7,7 +7,7 @@ const router = express.Router()
 const session = require('express-session')
 const { IsLoggedIn } = require('../middleware')
 
-router.get('/', async (req, res) => {
+router.get('/', IsLoggedIn, async (req, res) => {
     const dataAgenda = await Agenda.find({})
 
     //Mengambil Tanggal
@@ -72,7 +72,7 @@ router.post('/', IsLoggedIn, async (req, res) => {
     res.redirect('/dashboard')
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',IsLoggedIn, async (req, res) => {
     const { id } = req.params
     console.log(id)
     const hacaripus = await Agenda.findByIdAndDelete(id)

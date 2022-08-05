@@ -8,7 +8,7 @@ const session = require('express-session')
 const { IsLoggedIn } = require('../middleware')
 
 
-router.get('/januari', async(req, res) => {
+router.get('/januari', IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'Januari' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -19,7 +19,7 @@ router.get('/januari', async(req, res) => {
     res.render('month', { bulan, urlPath })
 })
 
-router.get('/februari', async(req, res) => {
+router.get('/februari',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'Februari' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -30,7 +30,7 @@ router.get('/februari', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/maret', async(req, res) => {
+router.get('/maret',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'Maret' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -41,7 +41,7 @@ router.get('/maret', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/april', async(req, res) => {
+router.get('/april',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'April' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -52,7 +52,7 @@ router.get('/april', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/mei', async(req, res) => {
+router.get('/mei',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'Mei' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -63,7 +63,7 @@ router.get('/mei', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/juni', async(req, res) => {
+router.get('/juni',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'Juni' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -74,7 +74,7 @@ router.get('/juni', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/Juli', async(req, res) => {
+router.get('/Juli',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'Juli' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -85,7 +85,7 @@ router.get('/Juli', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/agustus', async(req, res) => {
+router.get('/agustus',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'Agustus' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -95,7 +95,7 @@ router.get('/agustus', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/september', async(req, res) => {
+router.get('/september',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'September' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -106,7 +106,7 @@ router.get('/september', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/oktober', async(req, res) => {
+router.get('/oktober',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'Oktober' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -117,7 +117,7 @@ router.get('/oktober', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/november', async(req, res) => {
+router.get('/november',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'November' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')
@@ -128,7 +128,7 @@ router.get('/november', async(req, res) => {
     res.render('month', { bulan,urlPath })
 })
 
-router.get('/desember', async(req, res) => {
+router.get('/desember',IsLoggedIn, async(req, res) => {
     const bulan = await Agenda.find({ 'month': 'Desember' })
     // if(!Agustus.length){
     //     req.flash('success', 'Data tidak ada')

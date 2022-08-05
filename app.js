@@ -14,6 +14,7 @@ const index = require('./routes/index')
 const login = require('./routes/login')
 const month = require('./routes/month')
 const year = require('./routes/year')
+const register = require('./routes/register')
 const status = require('./routes/status')
 
 app.use(express.urlencoded({ extended: true }))
@@ -52,15 +53,17 @@ app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/dashboard', index)
+app.use('/dashboard/register', register)
 app.use('/dashboard/month', month)
 app.use('/dashboard/year', year)
 app.use('/dashboard/status', status)
+
 app.use('/', login)
 
 
-app.use('*', (req, res, next) => {
-    res.render('404')
-})
+// app.use('*', (req, res, next) => {
+//     res.render('404')
+// })
 
 app.listen(port, () => {
     console.log('server berjalan pada port 3000')
