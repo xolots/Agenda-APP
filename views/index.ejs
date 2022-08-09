@@ -26,6 +26,46 @@
 </head>
 
 <body>
+    
+
+    <!-- navbar -->
+    <div class="d-flex flex-column mb-4">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Agenda</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                        </li>
+                    </ul>
+
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <% if(IsAdmin !='guest' ) {%>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard/changepass">Ganti Password</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard/register">Add User</a>
+                            </li>
+                            <% } %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Logout</a>
+                                </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
 
     <div class="container">
 
@@ -72,23 +112,60 @@
             </div>
         </div> -->
 
+        
+
+
+
+        <!-- Reminder -->
+
+        
+
+        <!-- AKhir Reminder -->
+
             <div class="container">
                 <div class="row">
-                    <div class="col d-flex-inline">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                TAHUN
-                            </button>
-                            <ul class="dropdown-menu">
+                    <div class="col-sm-3 d-flex-inline">
 
-                                <li><a class="dropdown-item" href="/dashboard/year/2022">2022</a></li>
-                            </ul>
-                        </div>
+                        <form action="/dashboard/tanggal/year" method="post">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="inputGroupSelect01">TAHUN</label>
+                                <select class="form-select" id="inputGroupSelect01" name="year">
+                                    <option selected value="">Pilih...</option>
+                                        <option value="2022">
+                                            2022
+                                        </option>
+
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="inputGroupSelect02">BULAN</label>
+                                <select class="form-select" id="inputGroupSelect02" name="month">
+                                    <option selected value="">Pilih...</option>
+                                
+                                        <option value="agustus">
+                                           Agustus
+                                        </option>
+                                       
+
+                                </select>
+                            </div>
+
+
+                            <button class="btn btn-primary">Cari..</button>
+                        </form>
 
 
 
-                        <div class="btn-group">
+
+
+
+
+
+
+
+                        <!-- versi lama -->
+                        <!-- <div class="btn-group">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 BULAN
@@ -108,7 +185,7 @@
                                 <li><a class="dropdown-item" href="/dashboard/month/november">November</a></li>
                                 <li><a class="dropdown-item" href="/dashboard/month/desember">Desember</a></li>
                             </ul>
-                        </div>
+                        </div> -->
 
                         <!-- Status -->
 
@@ -119,127 +196,183 @@
 
 
 
-        <div class="container">
-            <div class="row">
-                <div class="col mt-3 d-flex-inline">
-                    <a href="/dashboard/status/done"><button type="button" class="btn btn-success">DONE</button></a>
+            <div class="container">
+                <div class="row">
+                    <div class="col mt-3 d-flex-inline">
+                        <a href="/dashboard/status/done"><button type="button" class="btn btn-success">DONE</button></a>
                         <a href="/dashboard/status/ongoing"><button type="button"
                                 class="btn btn-warning">ON-GOING</button></a>
-                        <a href="/dashboard/status/notyet"><button type="button" class="btn btn-secondary">NOT YET</button></a>
-                        <a href="/dashboard/status/delay"><button type="button" class="btn btn-primary">DELAY</button></a>
-                        <a href="/dashboard/status/cancel"><button type="button" class="btn btn-danger">CANCEL</button></a>
+                        <a href="/dashboard/status/notyet"><button type="button" class="btn btn-secondary">NOT
+                                YET</button></a>
+                        <a href="/dashboard/status/delay"><button type="button"
+                                class="btn btn-primary">DELAY</button></a>
+                        <a href="/dashboard/status/cancel"><button type="button"
+                                class="btn btn-danger">CANCEL</button></a>
+                    </div>
                 </div>
             </div>
-        </div>
 
+            <% if(IsAdmin==='didi' ) {%>
 
-        <p class="mt-4"><a href="/dashboard/new">Tambah Agenda Baru</a></p>
-        <% if(success && success.length) {%>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <%= success %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            <% } %>
-                <% if(dataAgenda) {%>
-                    <table
-                        class="table table-dark table-striped table-bordered border-primary table-sm mb-5 table-hover css-serial">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center align-middle">Date</th>
-                                <th scope="col" class="text-center align-middle">Month</th>
-                                <th scope="col" class="text-center align-middle">Time</th>
-                                <th scope="col" class="text-center align-middle">Daily Agenda</th>
-                                <th scope="col" class="text-center align-middle">Category</th>
-                                <th scope="col" class="text-center align-middle">STATUS</th>
-                                <th scope="col" class="text-center align-middle">Katerangan Hasil</th>
-                                <th scope="col" class="text-center align-middle">Katerangan Final</th>
-                                <th scope="col" class="text-center align-middle">Edit</th>
-                                <th scope="col" class="text-center align-middle">Hapus</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% for(let agenda of dataAgenda) {%>
-                                <tr>
-                                    <th scope="row" class="text-center align-middle">
-                                        <%= agenda.date %>
-                                    </th>
-                                    <td class="text-center align-middle">
-                                        <%= agenda.month %>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <%= agenda.time %>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <%= agenda.dailyAgenda %>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <%= agenda.category %>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <% if(agenda.hasil=='DONE' ) {%>
-                                            <a href="/dashboard/status/done"><button class="btn-success">
-                                                <%= agenda.hasil %>
-                                            </button>
-                                        </a>
-                                            <% }else if(agenda.hasil=='DELAY' ) {%>
-                                                <a href="/dashboard/status/delay"><button class="btn-primary delay">
-                                                    <%= agenda.hasil %>
-                                                </button>
-                                            </a>
-                                                <% }else if(agenda.hasil=='CANCEL' ) {%>
-                                                    <a href="/dashboard/status/cancel"><button class="btn-danger">
-                                                        <%= agenda.hasil %>
-                                                        </button>
-                                                    </a>
-                                                            <% }else if(agenda.hasil=='NOT YET' ) {%>
-                                                                <a href="/dashboard/status/notyet"><button class="btn-secondary">
+                <p class="mt-4"><a href="/dashboard/new">Tambah Agenda Baru</a></p>
+                <% } %>
+                    <p class="mb-4"></p>
+                    <% if(success && success.length) {%>
+                        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                            <%= success %>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                        <% } %>
+                            <% if(dataAgenda) {%>
+                                <table
+                                    class="table table-dark table-striped table-bordered border-primary table-sm mb-5 table-hover css-serial">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center align-middle">Date</th>
+                                            <th scope="col" class="text-center align-middle">Month</th>
+                                            <th scope="col" class="text-center align-middle">Time</th>
+                                            <th scope="col" class="text-center align-middle">Daily Agenda</th>
+                                            <th scope="col" class="text-center align-middle">Category</th>
+                                            <th scope="col" class="text-center align-middle">STATUS</th>
+                                            <!-- <th scope="col" class="text-center align-middle">Katerangan Hasil</th>
+                                        <th scope="col" class="text-center align-middle">Katerangan Final</th> -->
+                                            <% if(IsAdmin !='guest' ) {%>
+
+                                                <th scope="col" class="text-center align-middle">Edit</th>
+                                                <th scope="col" class="text-center align-middle">Hapus</th>
+                                                <% } %>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(let agenda of dataAgenda) {%>
+                                            <tr>
+                                                <th scope="row" class="text-center align-middle">
+                                                    <%= agenda.date %>
+                                                </th>
+                                                <td class="text-center align-middle">
+                                                    <%= agenda.month %>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <%= agenda.time %>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <%= agenda.dailyAgenda %>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <%= agenda.category %>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <% if(agenda.hasil=='DONE' ) {%>
+                                                        <a href="/dashboard/status/done"><button class="btn-success">
+                                                                <%= agenda.hasil %>
+                                                            </button>
+                                                        </a>
+                                                        <% }else if(agenda.hasil=='DELAY' ) {%>
+                                                            <a href="/dashboard/status/delay"><button
+                                                                    class="btn-primary delay">
                                                                     <%= agenda.hasil %>
+                                                                </button>
+                                                            </a>
+                                                            <% }else if(agenda.hasil=='CANCEL' ) {%>
+                                                                <a href="/dashboard/status/cancel"><button
+                                                                        class="btn-danger">
+                                                                        <%= agenda.hasil %>
                                                                     </button>
                                                                 </a>
-                                                                        <% }else if(agenda.hasil=='ON-GOING' ) {%>
-                                                                            <a href="/dashboard/status/ongoing"><button class="btn-warning">
+                                                                <% }else if(agenda.hasil=='NOT YET' ) {%>
+                                                                    <a href="/dashboard/status/notyet"><button
+                                                                            class="btn-secondary">
+                                                                            <%= agenda.hasil %>
+                                                                        </button>
+                                                                    </a>
+                                                                    <% }else if(agenda.hasil=='ON-GOING' ) {%>
+                                                                        <a href="/dashboard/status/ongoing"><button
+                                                                                class="btn-warning">
                                                                                 <%= agenda.hasil %>
                                                                             </button>
                                                                         </a>
-                                                                                    <% } %>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <%= agenda.kateranganHasil %>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <%= agenda.kateranganFinal %>
-                                    </td>
+                                                                        <% } %>
+                                                </td>
 
-                                    <td>
-                                        <!-- <div class="d-flex"> -->
-                                        <a href="/dashboard/edit/<%= agenda.id %>"><button
-                                                class="btn btn-info">Edit</button></a>
-                                        <!-- <div class="invisible">...</div> -->
-                                    </td>
-                                    <td>
-                                        <form action="/dashboard/<%= agenda.id %>?_method=delete" method="post">
-                                            <button class="btn btn-danger">Hapus</button>
-                                        </form>
-                                    </td>
-    </div>
 
-    </tr>
-    <% } %>
-        </tbody>
-        </table>
+                                                <% if(IsAdmin !='guest' ) {%>
+                                                    <td class="text-center">
+                                                        <!-- <div class="d-flex"> -->
+                                                        <a href="/dashboard/edit/<%= agenda.id %>"><button
+                                                                class="btn btn-info">Edit</button></a>
+                                                        <!-- <div class="invisible">...</div> -->
+                                                    </td>
+                                                    <td class="text-center">
+
+                                                        <form action="/dashboard/<%= agenda.id %>?_method=delete"
+                                                            method="post">
+
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#exampleModal<%= agenda.id %>">Hapus</button>
+
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="exampleModal<%= agenda.id %>"
+                                                                tabindex="-1"
+                                                                aria-labelledby="exampleModalLabel<%= agenda.id %> "
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel<%= agenda.id %> ">
+                                                                                Modal title</h5>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Batalkan</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Tetap
+                                                                                Hapus</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+                                                    </td>
+                                                    <% } %>
+        </div>
+
+        </tr>
         <% } %>
+            </tbody>
+            </table>
+            <% } %>
 
-            <!-- Tambah Data Baru -->
+                <!-- Tambah Data Baru -->
 
 
 
 
 
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-                crossorigin="anonymous"></script>
-            <script src="counter.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                    crossorigin="anonymous"></script>
+                <script src="counter.js"></script>
+                <script>
+                    const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+if (toastTrigger) {
+  toastTrigger.addEventListener('click', () => {
+    const toast = new bootstrap.Toast(toastLiveExample)
+
+    toast.show()
+  })
+}
+                </script>
 
 
 </body>

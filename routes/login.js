@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 const passport = require('passport')
+const {IsLoggedIn} = require('../middleware')
 
 router.get('/', async(req, res) => {
     res.render('users/login')
@@ -23,6 +24,35 @@ router.post('/', passport.authenticate('local', {failureFlash: true, failureRedi
     const redirectUrl = req.session.returnTo || "/dashboard";
     delete req.session.returnTo;
     res.redirect(redirectUrl)
+})
+
+router.get('/logout',IsLoggedIn, (req, res, next) => {
+    req.logout(function (err){
+        if(err){return next(err);}
+        req.flash('success', 'berhasil logout')
+        res.redirect('/')
+    })
+})
+
+router.get('/dashboard/changepass', (req,res) => {
+    res.render('users/changepass')
+})
+
+router.post('/dashboard/changepass', async(req,res) => {
+    const userName = await req.user.username
+    const {password} = req.body
+    const sanitizedUser = await User.findByUsername(userName);
+    try {
+      await sanitizedUser.setPassword(password);
+      await sanitizedUser.save();
+      req.flash('success', 'Berhasil Mengubah Password')
+      res.redirect('/dashboard')
+    } 
+    catch (err) {
+      req.flash('success', `${err}`)
+      res.redirect('/dashboard')
+    }
+
 })
 
 module.exports = router

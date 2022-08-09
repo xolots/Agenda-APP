@@ -10,31 +10,39 @@ const { IsLoggedIn } = require('../middleware')
 router.get('/done',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'DONE'})
-    res.render('status/done', {urlPath, bulan})
+    const IsAdmin = req.user.username
+    res.render('status/done', {urlPath, bulan, IsAdmin})
 })
 
 router.get('/ongoing',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'ON-GOING'})
-    res.render('status/done', {urlPath, bulan})
+    const IsAdmin = req.user.username
+
+    res.render('status/done', {urlPath, bulan,IsAdmin})
 })
 
 router.get('/notyet',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'NOT YET'})
-    res.render('status/done', {urlPath, bulan})
+    const IsAdmin = req.user.username
+    res.render('status/done', {urlPath, bulan, IsAdmin})
 })
 
 router.get('/delay',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'DELAY'})
-    res.render('status/done', {urlPath, bulan})
+    const IsAdmin = req.user.username
+
+    res.render('status/done', {urlPath, bulan, IsAdmin})
 })
 
 router.get('/cancel',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'CANCEL'})
-    res.render('status/done', {urlPath, bulan})
+    const IsAdmin = req.user.username
+
+    res.render('status/done', {urlPath, bulan, IsAdmin})
 })
 
 module.exports = router

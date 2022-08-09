@@ -27,12 +27,146 @@
 </head>
 
 <body>
+   <!-- navbar -->
+   <div class="d-flex flex-column mb-4">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Agenda</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                    </li>
+                </ul>
+
+
+                <ul class="navbar-nav ms-auto">
+
+                    <% if(IsAdmin !='guest' ) {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard/changepass">Ganti Password</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard/register">Add User</a>
+                        </li>
+                        <% } %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Logout</a>
+                            </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 
     <div class="container">
 
-        <h2 class="d-flex justify-content-center">Daftar Agenda Bulan <%= urlPath %>
+        <h2 class="d-flex justify-content-center">Daftar Agenda Dengan Status <%= urlPath %>
         </h2>
-        <p><a href="/dashboard">Kembali Ke Dashboard</a></p>
+
+
+        <!-- pemfilteran -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 d-flex-inline">
+
+                    <form action="/dashboard/tanggal/year" method="post">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">TAHUN</label>
+                            <select class="form-select" id="inputGroupSelect01" name="year">
+                                <option selected value="">Pilih...</option>
+                                    <option value="2022">
+                                        2022
+                                    </option>
+
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect02">BULAN</label>
+                            <select class="form-select" id="inputGroupSelect02" name="month">
+                                <option selected value="">Pilih...</option>
+                            
+                                    <option value="agustus">
+                                       Agustus
+                                    </option>
+                                   
+
+                            </select>
+                        </div>
+
+
+                        <button class="btn btn-primary">Cari..</button>
+                    </form>
+
+
+
+
+
+
+
+
+
+
+                    <!-- versi lama -->
+                    <!-- <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            BULAN
+                        </button>
+                        <ul class="dropdown-menu">
+
+                            <li><a class="dropdown-item" href="/dashboard/month/januari">Januari</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/februari">Februari</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/maret">Maret</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/april">April</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/mei">Mei</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/juni">Juni</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/juli">Juli</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/agustus">Agustus</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/september">September</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/oktober">Oktober</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/november">November</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/month/desember">Desember</a></li>
+                        </ul>
+                    </div> -->
+
+                    <!-- Status -->
+
+
+                </div>
+            </div>
+        </div>
+
+<!-- status -->
+<div class="container">
+    <div class="row">
+        <div class="col mt-3 d-flex-inline">
+            <a href="/dashboard/status/done"><button type="button" class="btn btn-success">DONE</button></a>
+            <a href="/dashboard/status/ongoing"><button type="button"
+                    class="btn btn-warning">ON-GOING</button></a>
+            <a href="/dashboard/status/notyet"><button type="button" class="btn btn-secondary">NOT
+                    YET</button></a>
+            <a href="/dashboard/status/delay"><button type="button"
+                    class="btn btn-primary">DELAY</button></a>
+            <a href="/dashboard/status/cancel"><button type="button"
+                    class="btn btn-danger">CANCEL</button></a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+        <p class="mt-4"><a href="/dashboard">Kembali Ke Dashboard</a></p>
         <% if(success && success.length) {%>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <%= success %>

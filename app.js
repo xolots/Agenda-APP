@@ -16,6 +16,8 @@ const month = require('./routes/month')
 const year = require('./routes/year')
 const register = require('./routes/register')
 const status = require('./routes/status')
+const yearMonth = require('./routes/yearMonth')
+
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
@@ -48,6 +50,8 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+
+
 app.set('view engine', 'ejs')
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -57,6 +61,7 @@ app.use('/dashboard/register', register)
 app.use('/dashboard/month', month)
 app.use('/dashboard/year', year)
 app.use('/dashboard/status', status)
+app.use('/dashboard/tanggal', yearMonth)
 
 app.use('/', login)
 

@@ -10,12 +10,11 @@ async function main() {
 const AgendaSchema = new mongoose.Schema({
     date: String,
     time: String,
+    year: String,
     month: String,
     dailyAgenda: String,
     category: String,
     hasil: String,
-    kateranganHasil: String,
-    kateranganFinal: String
 })
 
 const Agenda = mongoose.model('Agenda', AgendaSchema)

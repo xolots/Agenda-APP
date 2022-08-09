@@ -38,15 +38,21 @@ router.get('/', IsLoggedIn, async (req, res) => {
 
 
     //Ambil Semua Tahun Di Database
-    // const tahun = await Agenda.find({}).select('date -_id')
-    // const tahunLength = tahun.length
-    // console.log(tahun)
+    const tahun1 = await Agenda.find({}).select('date -_id')
+    const tahunLength = tahun1.length
+    // console.log(tahun1)
     // console.log(yyyy)
 
     const tahun = await Agenda.find({'date': {$regex:'2022'}})
+    const IsAdmin = req.user.username
+    
 
 
-    res.render('index', { dataAgenda, today, time, mm, tahun })
+    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin })
+})
+
+router.get('/navbar', (req, res) => {
+    res.render('partials/navbar')
 })
 
 
@@ -74,7 +80,6 @@ router.post('/', IsLoggedIn, async (req, res) => {
 
 router.delete('/:id',IsLoggedIn, async (req, res) => {
     const { id } = req.params
-    console.log(id)
     const hacaripus = await Agenda.findByIdAndDelete(id)
     req.flash('success', 'Agenda Berhasil Dihapus')
     res.redirect('/dashboard')
@@ -109,5 +114,8 @@ router.get('/new', IsLoggedIn, async (req, res) => {
 
     res.render('add', { dataAgenda, today, time, mm, month, yyyy })
 })
+
+
+
 
 module.exports = router
