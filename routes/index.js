@@ -111,8 +111,11 @@ router.get('/new', IsLoggedIn, async (req, res) => {
     const month = date.toLocaleString('id-ID', { month: 'long' });
     // console.log(month);
 
+    const IsAdmin = req.user.username
 
-    res.render('add', { dataAgenda, today, time, mm, month, yyyy })
+
+
+    res.render('add', { dataAgenda, today, time, mm, month, yyyy, IsAdmin })
 })
 
 
