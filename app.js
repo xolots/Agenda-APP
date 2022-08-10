@@ -17,6 +17,7 @@ const year = require('./routes/year')
 const register = require('./routes/register')
 const status = require('./routes/status')
 const yearMonth = require('./routes/yearMonth')
+const Category = require('./routes/category')
 
 
 app.use(express.urlencoded({ extended: true }))
@@ -36,7 +37,7 @@ app.use(flash())
 
 app.use((req, res, next) => {
 
-    res.locals.IsCurrentUser = req.user
+    // res.locals.IsCurrentUser = req.user.username
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
 
@@ -62,13 +63,14 @@ app.use('/dashboard/month', month)
 app.use('/dashboard/year', year)
 app.use('/dashboard/status', status)
 app.use('/dashboard/tanggal', yearMonth)
+app.use('/dashboard/category', Category)
 
 app.use('/', login)
 
 
-// app.use('*', (req, res, next) => {
-//     res.render('404')
-// })
+app.use('*', (req, res, next) => {
+    res.render('404')
+})
 
 app.listen(port, () => {
     console.log('server berjalan pada port 3000')

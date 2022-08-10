@@ -67,7 +67,10 @@ router.get('/edit/:id', IsLoggedIn, async (req, res) => {
     var options = { hour: '2-digit', minute: '2-digit', hour12: false };
     const time = date.toLocaleTimeString(['en-US'], options)
 
-    res.render('edit', { agenda, time })
+
+    const IsAdmin = req.user.username
+
+    res.render('edit', { agenda, time,IsAdmin })
 })
 
 router.post('/', IsLoggedIn, async (req, res) => {
@@ -117,6 +120,8 @@ router.get('/new', IsLoggedIn, async (req, res) => {
 
     res.render('add', { dataAgenda, today, time, mm, month, yyyy, IsAdmin })
 })
+
+
 
 
 

@@ -7,12 +7,12 @@ const router = express.Router()
 const session = require('express-session')
 const { IsLoggedIn } = require('../middleware')
 
-router.get('/:year',IsLoggedIn, async(req, res) => {
-    const {year} = req.params
-    const tahun = await Agenda.find({'date': {$regex:`${year}`}})
+router.get('/:categoryy',IsLoggedIn, async(req, res) => {
+    const {categoryy} = req.params
+    const category = await Agenda.find({'category': {$regex:`${categoryy}`}})
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    res.render('year', {urlPath, tahun, IsAdmin})
+    res.render('category', {urlPath, category, IsAdmin, categoryy})
 })
 
 module.exports = router

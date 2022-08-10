@@ -15,8 +15,9 @@ router.get('/januari', IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/j', 'J')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan, urlPath })
+    res.render('month', { bulan, urlPath, IsAdmin })
 })
 
 router.get('/februari',IsLoggedIn, async(req, res) => {
@@ -26,8 +27,10 @@ router.get('/februari',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/f', 'F')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/maret',IsLoggedIn, async(req, res) => {
@@ -37,8 +40,10 @@ router.get('/maret',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/m', 'M')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/april',IsLoggedIn, async(req, res) => {
@@ -48,8 +53,10 @@ router.get('/april',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/a', 'A')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/mei',IsLoggedIn, async(req, res) => {
@@ -59,8 +66,9 @@ router.get('/mei',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/m', 'M')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/juni',IsLoggedIn, async(req, res) => {
@@ -70,8 +78,9 @@ router.get('/juni',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/j', 'J')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/Juli',IsLoggedIn, async(req, res) => {
@@ -81,8 +90,9 @@ router.get('/Juli',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/j', 'J')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/agustus',IsLoggedIn, async(req, res) => {
@@ -92,7 +102,9 @@ router.get('/agustus',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/a', 'A')
-    res.render('month', { bulan,urlPath })
+    const IsAdmin = req.user.username
+
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/september',IsLoggedIn, async(req, res) => {
@@ -102,8 +114,9 @@ router.get('/september',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/s', 'S')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/oktober',IsLoggedIn, async(req, res) => {
@@ -113,8 +126,9 @@ router.get('/oktober',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/o', 'O')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/november',IsLoggedIn, async(req, res) => {
@@ -124,8 +138,9 @@ router.get('/november',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/n', 'N')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 router.get('/desember',IsLoggedIn, async(req, res) => {
@@ -135,8 +150,9 @@ router.get('/desember',IsLoggedIn, async(req, res) => {
     //     return res.redirect('/dashboard')
     // }
     const urlPath = req.path.replace('/d', 'D')
+    const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath })
+    res.render('month', { bulan,urlPath, IsAdmin })
 })
 
 
