@@ -23,17 +23,24 @@ router.get('/:year/:month/:category', IsLoggedIn, async (req, res) => {
     const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' },category: `${category}` })
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    console.log(IsAdmin)
+    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin })
+})
+
+router.get('/:year/:month/:category/:status', IsLoggedIn, async (req, res) => {
+    const { year, month, category,status } = req.params
+    const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' },category: `${category}`, hasil: `${status}` })
+    const urlPath = req.path.replace('/', '')
+    const IsAdmin = req.user.username
     res.render('tanggal', { bulan, urlPath, year, month, IsAdmin })
 })
 
 
 
 router.post('/year', (req, res) => {
-    const { year, month, category } = req.body
+    const { year, month, category, status } = req.body
 
-    if (month === '' && year === '' && category === ''){
-        req.flash('success', 'Harap Masukkan Opsi Bulan,Tahun,Category')
+    if (month === '' && year === '' && category === '' && status === ''){
+        req.flash('success', 'Mohon Jangan Kosongkan Opsi')
         res.redirect('/dashboard')
     }
 
@@ -42,6 +49,13 @@ router.post('/year', (req, res) => {
         // return res.redirect('/dashboard')
 
         return res.redirect(`/dashboard/category/${category}`)
+    }
+
+    if (month === '' && year === '' && category === '' && status) {
+        // req.flash('success', 'Harap Masukkan Opsi Tahun Dan Bulan')
+        // return res.redirect('/dashboard')
+
+        return res.redirect(`/dashboard/status/${status}`)
     }
     if (month === '') {
         return res.redirect(`/dashboard/year/${year}`)
@@ -54,7 +68,7 @@ router.post('/year', (req, res) => {
 
 
 
-     res.redirect(`/dashboard/tanggal/${year}/${month}/${category}`)
+     res.redirect(`/dashboard/tanggal/${year}/${month}/${category}/${status}`)
 
 })
 
