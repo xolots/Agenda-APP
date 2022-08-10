@@ -33,7 +33,7 @@ router.post('/year', (req, res) => {
     const { year, month, category } = req.body
 
     if (month === '' && year === '' && category === ''){
-        req.flash('success', 'Harap Masukkan Ops Bulan,Tahun,Category')
+        req.flash('success', 'Harap Masukkan Opsi Bulan,Tahun,Category')
         res.redirect('/dashboard')
     }
 
