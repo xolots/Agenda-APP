@@ -50,7 +50,7 @@ router.post('/dashboard/changepass', async(req,res) => {
     } 
     catch (err) {
       req.flash('success', `${err}`)
-      res.redirect('/dashboard')
+      res.redirect('/dashboard/changepass')
     }
 
 })
@@ -69,9 +69,9 @@ router.post('/dashboard/changeemail', IsLoggedIn, async(req, res) => {
     req.flash('success', 'Berhasil Mengubah Email')
     res.redirect('/dashboard')
     }catch (err) {
-        req.flash('success', `${err}`)
-        res.redirect('/dashboard/changeemail')
-      }
+      req.flash('success', `${err}`)
+      res.redirect('/dashboard/changeemail')
+    }
 
 })
 
