@@ -111,7 +111,12 @@ button[disabled] {
             <h2 class="formTitle">
               Ganti Email
             </h2>
-
+            <% if(success && success.length) {%>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <%= success %>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <% } %>
             <div class="inputDiv">
                 <label class="inputLabel" for="currentemail">Email Sebelumnya</label>
                 <input type="email" id="currentemail" name="currentemail" placeholder="<%= user.email %> " readonly>
