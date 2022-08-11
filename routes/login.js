@@ -34,11 +34,11 @@ router.get('/logout',IsLoggedIn, (req, res, next) => {
     })
 })
 
-router.get('/dashboard/changepass', (req,res) => {
+router.get('/dashboard/changepass',IsLoggedIn, (req,res) => {
     res.render('users/changepass')
 })
 
-router.post('/dashboard/changepass', async(req,res) => {
+router.post('/dashboard/changepass',IsLoggedIn, async(req,res) => {
     const userName = await req.user.username
     const {password} = req.body
     const sanitizedUser = await User.findByUsername(userName);
