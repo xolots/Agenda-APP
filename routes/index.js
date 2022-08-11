@@ -62,6 +62,13 @@ router.get('/edit/:id', IsLoggedIn, async (req, res) => {
     const { id } = req.params
     const agenda = await Agenda.findById(id)
 
+    //Mengambil Tanggal
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = dd + '/' + mm + '/' + yyyy;
+
     //Mengambil Waktu
     var date = new Date();
     var options = { hour: '2-digit', minute: '2-digit', hour12: false };
@@ -70,7 +77,7 @@ router.get('/edit/:id', IsLoggedIn, async (req, res) => {
 
     const IsAdmin = req.user.username
 
-    res.render('edit', { agenda, time,IsAdmin })
+    res.render('edit', { agenda, time,IsAdmin, today })
 })
 
 router.post('/', IsLoggedIn, async (req, res) => {
