@@ -63,10 +63,15 @@ router.get('/dashboard/changeemail',IsLoggedIn, async(req, res) => {
 router.post('/dashboard/changeemail', IsLoggedIn, async(req, res) => {
     const {email} = req.body
     const user = req.user
+    try{
     user.email = email
     await user.save()
     req.flash('success', 'Berhasil Mengubah Email')
     res.redirect('/dashboard')
+    }catch (err) {
+        req.flash('success', `${err}`)
+        res.redirect('/dashboard/changeemail')
+      }
 
 })
 
