@@ -32,6 +32,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard/register">Add User</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard/user">List User</a>
+                        </li>
                         <% } %>
                             <li class="nav-item">
                                 <a class="nav-link" href="/logout">Logout</a>
@@ -65,8 +68,8 @@
         <div class="row mb-3">
             <label for="date" class="col-sm-2 col-form-label">Date</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" readonly id="date" name="date" value="<%= today %>"
-                    placeholder="<%= today %> " required>
+                <input type="text" class="form-control" id="date" name="date" value="<%= today %>"
+                    placeholder="<%= today %>" required>
             </div>
         </div>
 

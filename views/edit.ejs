@@ -39,6 +39,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/dashboard/register">Add User</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard/user">List User</a>
+                            </li>
                             <% } %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/logout">Logout</a>
@@ -56,34 +60,41 @@
                     <h1>Edit Agenda</h1>
                     <p class="description">isi Form Dibawah Untuk Mengubah Data</p>
 
-                    <div class="invisible">
-                            <input type="text" name="tanggal" value="<%= agenda.date %>">
+                    <div class="row mb-3">
+                        <label for="date" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="date" name="date" value="<%= agenda.date %>"
+                                placeholder="<%= agenda.date %>" required>
+                        </div>
                     </div>
-                    <div class="invisible">
-                            <input type="text" id="time" name="time" value="<%= time %>">
+                    
 
+                    <div class="waktu">
+                        <input type="hidden" id="time" name="time" value="<%= time %>">
                     </div>
+
 
                     <div class="row mb-3">
                         <label for="dailyAgenda" class="col-sm-2 col-form-label">Agenda</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="dailyAgenda" name="dailyAgenda" value="<%= agenda.dailyAgenda %>">
+                            <input type="text" class="form-control" id="dailyAgenda" name="dailyAgenda"
+                                value="<%= agenda.dailyAgenda %>">
                         </div>
                     </div>
 
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="inputGroupSelect01">Hasil</label>
                         <select class="form-select" id="inputGroupSelect01" name="hasil">
-                          <option value="<%= agenda.hasil %>" selected>Pilih</option>
-                          <option value="ON-GOING">ON-GOING</option>
-                          <option value="NOT YET">NOT YET</option>
-                          <option value="DONE">DONE</option>
-                          <option value="DELAY">DELAY</option>
-                          <option value="CANCEL">CANCEL</option>
+                            <option value="<%= agenda.hasil %>" selected>Pilih</option>
+                            <option value="ON-GOING">ON-GOING</option>
+                            <option value="NOT YET">NOT YET</option>
+                            <option value="DONE">DONE</option>
+                            <option value="DELAY">DELAY</option>
+                            <option value="CANCEL">CANCEL</option>
                         </select>
-                      </div>
+                    </div>
 
-            
+
                     <button class="btn btn-secondary">Edit Data</button>
                 </form>
             </div>

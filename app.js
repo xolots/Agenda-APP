@@ -18,6 +18,8 @@ const register = require('./routes/register')
 const status = require('./routes/status')
 const yearMonth = require('./routes/yearMonth')
 const Category = require('./routes/category')
+const listUser = require('./routes/listUser')
+
 
 
 app.use(express.urlencoded({ extended: true }))
@@ -64,6 +66,7 @@ app.use('/dashboard/year', year)
 app.use('/dashboard/status', status)
 app.use('/dashboard/tanggal', yearMonth)
 app.use('/dashboard/category', Category)
+app.use('/dashboard/user', listUser)
 
 app.use('/', login)
 
