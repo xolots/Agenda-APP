@@ -55,4 +55,26 @@ router.post('/dashboard/changepass', async(req,res) => {
 
 })
 
+router.get('/dashboard/changeemail',IsLoggedIn, async(req, res) => {
+    const user = req.user
+    res.render('users/changeemail', {user})
+})
+
+router.post('/dashboard/changeemail', IsLoggedIn, async(req, res) => {
+    const {email} = req.body
+    const user = req.user
+    user.email = email
+    await user.save()
+    req.flash('success', 'Berhasil Mengubah Email')
+    res.redirect('/dashboard')
+
+})
+
+router.delete('/dashboard/user/:id',async (req, res) => {
+    const {id} = req.params
+    const userDelete = await User.findByIdAndDelete(id)
+    req.flash('success', 'Berhasil Menghapus User')
+    res.redirect('/dashboard/user')
+})
+
 module.exports = router

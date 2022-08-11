@@ -12,7 +12,7 @@ const user = require('../models/user')
 
 router.get('/',IsLoggedIn, async (req, res) => {
     const users = await Users.find({})
-    const IsAdmin = req.user
+    const IsAdmin = req.user.username
     res.render('listUser', {users, IsAdmin})
 })
 

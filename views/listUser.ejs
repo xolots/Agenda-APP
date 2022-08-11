@@ -53,7 +53,15 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link" href="/dashboard/changeemail">Ganti Email</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" href="/dashboard/register">Add User</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard/user">List User</a>
                             </li>
                             <% } %>
                                 <li class="nav-item">
@@ -278,6 +286,9 @@
                             <tr>
                                 <th scope="col" class="text-center align-middle">EMAIL</th>
                                 <th scope="col" class="text-center align-middle">USERNAME</th>
+                                <% if(IsAdmin === 'didi') {%>
+                                    <th scope="col" class="text-center align-middle"></th>
+                                    <% } %>
                             </tr>
                         </thead>
                         <tbody>
@@ -289,6 +300,13 @@
                                     <td class="text-center align-middle">
                                         <%= user.username %>
                                     </td>
+                                    <% if(IsAdmin==='didi' ) {%>
+                                        <td class="text-center align-middle">
+                                            <form action="/dashboard/user/<%= user.id %>?_method=delete" method="post">
+                                                <button class="btn btn-danger">HAPUS</button>
+                                            </form>
+                                        </td>
+                                        <% } %>
                                 </tr>
 
                                 <% } %>
