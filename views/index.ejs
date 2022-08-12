@@ -67,6 +67,18 @@
 
 
         <h2 class="d-flex justify-content-center">Daftar Agenda</h2>
+        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast fixed-bottom m-5 ms-auto"
+    data-bs-autohide="false">
+    <div class="toast-header">
+        <!-- <img src="" class="rounded me-2" alt="..."> -->
+        <strong class="me-auto">Remainder</strong>
+        <!-- <small>11 mins ago</small> -->
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        Kamu Mempunyai <strong><%= jumlahAgendaNotYet %> AGENDA YANG BELUM DIKERJAKAN</strong>
+    </div>
+</div>
 
 
         <!-- Dropdown Menu -->
@@ -459,15 +471,15 @@
                     crossorigin="anonymous"></script>
                 <script src="counter.js"></script>
                 <script>
-                    const toastTrigger = document.getElementById('liveToastBtn')
-                    const toastLiveExample = document.getElementById('liveToast')
-                    if (toastTrigger) {
-                        toastTrigger.addEventListener('click', () => {
-                            const toast = new bootstrap.Toast(toastLiveExample)
+                       window.onload = (event) => {
+        let myAlert = document.querySelector('.toast');
+        let bsAlert = new bootstrap.Toast(myAlert);
+        
+        setTimeout(function () {
+            bsAlert.show();
+        }, 1000);
+    };
 
-                            toast.show()
-                        })
-                    }
                 </script>
 
 

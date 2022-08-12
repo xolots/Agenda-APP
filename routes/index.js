@@ -45,10 +45,15 @@ router.get('/', IsLoggedIn, async (req, res) => {
 
     const tahun = await Agenda.find({'date': {$regex:'2022'}})
     const IsAdmin = req.user.username
+
+
+    //Mencari Semua Agenda Dengan Status Not-Yet
+    const findNotYet = await Agenda.find({'hasil': 'NOT YET'})
+    const jumlahAgendaNotYet = findNotYet.length
     
 
 
-    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin })
+    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin, jumlahAgendaNotYet })
 })
 
 router.get('/navbar', (req, res) => {
