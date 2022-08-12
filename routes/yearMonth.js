@@ -14,7 +14,6 @@ router.get('/:year/:month', IsLoggedIn, async (req, res) => {
     const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' } })
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    console.log(IsAdmin)
     res.render('tanggal', { bulan, urlPath, year, month, IsAdmin })
 })
 
