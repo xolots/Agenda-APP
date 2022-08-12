@@ -281,7 +281,7 @@
             <% } %>
                 <% if(users) {%>
                     <table
-                        class="table table-dark table-striped table-bordered border-primary table-sm mb-5 table-hover css-serial">
+                        class="table table-striped table-bordered table-sm mb-5 table-hover">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center align-middle">EMAIL</th>
@@ -303,7 +303,35 @@
                                     <% if(IsAdmin==='didi' ) {%>
                                         <td class="text-center align-middle">
                                             <form action="/dashboard/user/<%= user.id %>?_method=delete" method="post">
-                                                <button class="btn btn-danger">HAPUS</button>
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal<%= user.id %>">HAPUS</button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal<%= user.id %>"
+                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content text-dark">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="exampleModalLabel">Yakin? </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Apakah Anda Tetap Ingin Menghapus User?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button"
+                                                                    class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-danger">Hapus</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </td>
                                         <% } %>
