@@ -11,7 +11,7 @@ const user = require('../models/user')
 
 
 router.get('/',IsLoggedIn, async (req, res) => {
-    const users = await Users.find({})
+    const users = await Users.find({}).sort({$natural:-1});
     const IsAdmin = req.user.username
     res.render('listUser', {users, IsAdmin})
 })

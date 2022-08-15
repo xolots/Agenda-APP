@@ -7,8 +7,27 @@ const router = express.Router()
 const session = require('express-session')
 const { IsLoggedIn } = require('../middleware')
 
+
 router.get('/', IsLoggedIn, async (req, res) => {
-    const dataAgenda = await Agenda.find({})
+    // const dataAgenda = await Agenda.find({}).sort({$natural:-1}).limit(30);
+
+    const page = parseInt(req.query.page || 1)
+    // const limit = req.query.limit || 10
+
+    const options = {
+        page: page,
+        limit: 10,
+        sort: {$natural:-1}
+      };
+
+// console.log(page)      
+    const dataAgendaa = await Agenda.paginate({}, options)
+    // const dataAgendaa3 = await Agenda.paginate({}, options2)
+
+    const dataAgenda = dataAgendaa.docs
+    // console.log(req.query)
+    // console.log(dataAgendaa3)
+    // console.log(dataAgendaPaginate)
 
     //Mengambil Tanggal
     var today = new Date();
@@ -19,8 +38,8 @@ router.get('/', IsLoggedIn, async (req, res) => {
 
     //Mengambil Waktu
     var date = new Date();
-    var options = { hour: '2-digit', minute: '2-digit', hour12: false };
-    const time = date.toLocaleTimeString(['en-US'], options)
+    var optionsDate = { hour: '2-digit', minute: '2-digit', hour12: false };
+    const time = date.toLocaleTimeString(['en-US'], optionsDate)
 
     //Finf by month
     // const Januari = await Agenda.find({ 'month': 'Januari' })
@@ -43,17 +62,17 @@ router.get('/', IsLoggedIn, async (req, res) => {
     // console.log(tahun1)
     // console.log(yyyy)
 
-    const tahun = await Agenda.find({'date': {$regex:'2022'}})
+    const tahun = await Agenda.find({ 'date': { $regex: '2022' } })
     const IsAdmin = req.user.username
 
 
     //Mencari Semua Agenda Dengan Status Not-Yet
-    const findNotYet = await Agenda.find({'hasil': 'NOT YET'})
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
     const jumlahAgendaNotYet = findNotYet.length
-    
 
 
-    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin, jumlahAgendaNotYet })
+
+    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin, jumlahAgendaNotYet, page })
 })
 
 router.get('/navbar', (req, res) => {
@@ -65,7 +84,7 @@ router.get('/navbar', (req, res) => {
 
 router.get('/edit/:id', IsLoggedIn, async (req, res) => {
     const { id } = req.params
-    const agenda = await Agenda.findById(id)
+    const agenda = await Agenda.findById(id).sort({ $natural: -1 });
 
     //Mengambil Tanggal
     var today = new Date();
@@ -82,7 +101,7 @@ router.get('/edit/:id', IsLoggedIn, async (req, res) => {
 
     const IsAdmin = req.user.username
 
-    res.render('edit', { agenda, time,IsAdmin, today })
+    res.render('edit', { agenda, time, IsAdmin, today })
 })
 
 router.post('/', IsLoggedIn, async (req, res) => {
@@ -93,7 +112,7 @@ router.post('/', IsLoggedIn, async (req, res) => {
     res.redirect('/dashboard')
 })
 
-router.delete('/:id',IsLoggedIn, async (req, res) => {
+router.delete('/:id', IsLoggedIn, async (req, res) => {
     const { id } = req.params
     const hacaripus = await Agenda.findByIdAndDelete(id)
     req.flash('success', 'Agenda Berhasil Dihapus')
