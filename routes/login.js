@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require('../models/user')
 const passport = require('passport')
 const {IsLoggedIn} = require('../middleware')
+const user = require('../models/user')
 
 router.get('/', async(req, res) => {
     res.render('users/login')
@@ -75,11 +76,34 @@ router.post('/dashboard/changeemail', IsLoggedIn, async(req, res) => {
 
 })
 
-router.delete('/dashboard/user/:id',async (req, res) => {
+router.delete('/dashboard/user/:id',IsLoggedIn,async (req, res) => {
     const {id} = req.params
     const userDelete = await User.findByIdAndDelete(id)
     req.flash('success', 'Berhasil Menghapus User')
     res.redirect('/dashboard/user')
+})
+
+router.get('/dashboard/user/:id',IsLoggedIn,async (req,res) => {
+    const {id} = req.params
+    const user = await User.findById(id)
+    res.render('users/edituser', {user})
+})
+
+router.put('/dashboard/user/:id',IsLoggedIn ,async (req, res) => {
+    const {email, username, password} = req.body
+    const user = await User.findById(req.params.id)
+    try{
+        user.email = email
+        user.username = username
+        await user.setPassword(password);
+        await user.save()
+        req.flash('success', 'berhasil mengedit user')
+        return res.redirect('/dashboard/user')
+    }
+    catch (err) {
+        req.flash('success', `${err}`)
+        return res.redirect(`/dashboard/user/${user.id}`)
+      }
 })
 
 module.exports = router

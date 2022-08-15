@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 main().then(() => console.log('koneksi db berhasil')).catch(err => console.log(err));
 
@@ -16,6 +17,10 @@ const AgendaSchema = new mongoose.Schema({
     category: String,
     hasil: String,
 })
+
+
+AgendaSchema.plugin(mongoosePaginate);
+
 
 const Agenda = mongoose.model('Agenda', AgendaSchema)
 
