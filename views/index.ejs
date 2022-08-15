@@ -13,6 +13,22 @@
 
 </head>
 
+<style>
+    table {
+    counter-reset: rowNumber;
+}
+
+table tr {
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+}
+</style>
+
 <body>
 
 
@@ -338,6 +354,7 @@
                                     class="table table-dark table-striped table-bordered border-primary table-sm mb-5 table-hover css-serial">
                                     <thead>
                                         <tr>
+                                            <th scope="col" class="text-center align-middle">Number</th>
                                             <th scope="col" class="text-center align-middle">Date</th>
                                             <th scope="col" class="text-center align-middle">Month</th>
                                             <th scope="col" class="text-center align-middle">Time</th>
@@ -356,6 +373,7 @@
                                     <tbody>
                                         <% for(let agenda of dataAgenda) {%>
                                             <tr>
+                                                <!-- <td></td> -->
                                                 <th scope="row" class="text-center align-middle">
                                                     <%= agenda.date %>
                                                 </th>
