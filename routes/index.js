@@ -73,8 +73,7 @@ router.get('/', IsLoggedIn, async (req, res) => {
     const jumlahAgendaNotYet = findNotYet.length
 
 
-
-    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin, jumlahAgendaNotYet, page, stickyAgenda })
+    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin, jumlahAgendaNotYet,findNotYet, page, stickyAgenda })
 })
 
 router.get('/navbar', (req, res) => {
