@@ -6,6 +6,11 @@ const {IsLoggedIn} = require('../middleware')
 const user = require('../models/user')
 
 router.get('/', async(req, res) => {
+    if(req.isAuthenticated()){
+        return res.redirect('/dashboard')
+    }
+
+
     res.render('users/login')
 })
 
