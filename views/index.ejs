@@ -367,6 +367,157 @@
                                     aria-label="Close"></button>
                         </div>
                         <% } %>
+
+
+
+                        <% if(stickyAgenda) {%>
+                            <table
+                                class="table table-dark table-striped table-bordered border-primary table-sm mb-5 table-hover css-serial">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center align-middle">Number</th>
+                                        <th scope="col" class="text-center align-middle">Date</th>
+                                        <th scope="col" class="text-center align-middle">Month</th>
+                                        <th scope="col" class="text-center align-middle">Time</th>
+                                        <th scope="col" class="text-center align-middle">Pinned Agenda</th>
+                                        <th scope="col" class="text-center align-middle">Category</th>
+                                        <th scope="col" class="text-center align-middle">STATUS</th>
+                                        <!-- <th scope="col" class="text-center align-middle">Katerangan Hasil</th>
+                                    <th scope="col" class="text-center align-middle">Katerangan Final</th> -->
+                                        <% if(IsAdmin !='guest' ) {%>
+
+                                            <th scope="col" class="text-center align-middle">Edit</th>
+                                            <th scope="col" class="text-center align-middle">Hapus</th>
+                                            <% } %>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <% if(stickyAgenda.length) {%>
+                                        <% for(let stickAgenda of stickyAgenda) {%>
+                                            <tr class="table-primary">
+
+                                                <td class="text-center align-middle"></td>
+                                                <td class="text-center align-middle fw-bold">
+
+                                                    <%= stickAgenda.date %>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <%= stickAgenda.month %>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <%= stickAgenda.time %>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <%= stickAgenda.dailyAgenda %>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <%= stickAgenda.category %>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <% if(stickAgenda.hasil=='DONE' ) {%>
+                                                        <a href="/dashboard/status/done"><button
+                                                                class="btn-success">
+                                                                <%= stickAgenda.hasil %>
+                                                            </button>
+                                                        </a>
+                                                        <% }else if(stickAgenda.hasil=='DELAY' ) {%>
+                                                            <a href="/dashboard/status/delay"><button
+                                                                    class="btn-primary delay">
+                                                                    <%= stickAgenda.hasil %>
+                                                                </button>
+                                                            </a>
+                                                            <% }else if(stickAgenda.hasil=='CANCEL' ) {%>
+                                                                <a href="/dashboard/status/cancel"><button
+                                                                        class="btn-danger">
+                                                                        <%= stickAgenda.hasil %>
+                                                                    </button>
+                                                                </a>
+                                                                <% }else if(stickAgenda.hasil=='NOT YET' ) {%>
+                                                                    <a href="/dashboard/status/notyet"><button
+                                                                            class="btn-secondary">
+                                                                            <%= stickAgenda.hasil %>
+                                                                        </button>
+                                                                    </a>
+                                                                    <% }else if(stickAgenda.hasil=='ON-GOING' ) {%>
+                                                                        <a href="/dashboard/status/ongoing"><button
+                                                                                class="btn-warning">
+                                                                                <%= stickAgenda.hasil %>
+                                                                            </button>
+                                                                        </a>
+                                                                        <% } %>
+                                                </td>
+
+
+                                                <% if(IsAdmin !='guest' ) {%>
+                                                    <td class="text-center align-middle">
+                                                        <!-- <div class="d-flex"> -->
+                                                        <a href="/dashboard/edit/<%= stickAgenda.id %>"><button
+                                                                class="btn btn-info">Edit</button></a>
+                                                        <!-- <div class="invisible">...</div> -->
+                                                    </td>
+                                                    <td class="text-center align-middle">
+
+                                                        <form
+                                                            action="/dashboard/<%= stickAgenda.id %>?_method=delete"
+                                                            method="post">
+
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#exampleModal<%= stickAgenda.id %>">Hapus</button>
+
+                                                            <!-- Modal -->
+                                                            <div class="modal fade"
+                                                                id="exampleModal<%= stickAgenda.id %>" tabindex="-1"
+                                                                aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content text-dark">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">Yakin? </h5>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            Apakah Anda Tetap Ingin Menghapus
+                                                                            Agenda <i>
+                                                                                <%= stickAgenda.dailyAgenda %>
+                                                                            </i>?
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Close</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Hapus</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+                                                    </td>
+
+                                                    <% } %>
+                                                        <% } %>
+                                                            <% } %>
+
+                                                            
+                                                   
+
+                                                    <% } %>
+    </div>
+
+    </tr>
+        </tbody>
+        </table>
+
+
+
+
+                        <!-- TABEL DATA AGENDA (NOT STICKY) -->
                             <% if(dataAgenda) {%>
                                 <table
                                     class="table table-dark table-striped table-bordered border-primary table-sm mb-5 table-hover css-serial">
@@ -390,114 +541,11 @@
                                     </thead>
                                     <tbody>
 
-                                        <% if(stickyAgenda.length) {%>
-                                            <% for(let stickAgenda of stickyAgenda) {%>
-                                                <tr class="table-primary">
-
-                                                    <td class="text-center align-middle"></td>
-                                                    <td class="text-center align-middle fw-bold">
-
-                                                        <%= stickAgenda.date %>
-                                                    </td>
-                                                    <td class="text-center align-middle">
-                                                        <%= stickAgenda.month %>
-                                                    </td>
-                                                    <td class="text-center align-middle">
-                                                        <%= stickAgenda.time %>
-                                                    </td>
-                                                    <td class="text-center align-middle">
-                                                        <%= stickAgenda.dailyAgenda %>
-                                                    </td>
-                                                    <td class="text-center align-middle">
-                                                        <%= stickAgenda.category %>
-                                                    </td>
-                                                    <td class="text-center align-middle">
-                                                        <% if(stickAgenda.hasil=='DONE' ) {%>
-                                                            <a href="/dashboard/status/done"><button
-                                                                    class="btn-success">
-                                                                    <%= stickAgenda.hasil %>
-                                                                </button>
-                                                            </a>
-                                                            <% }else if(stickAgenda.hasil=='DELAY' ) {%>
-                                                                <a href="/dashboard/status/delay"><button
-                                                                        class="btn-primary delay">
-                                                                        <%= stickAgenda.hasil %>
-                                                                    </button>
-                                                                </a>
-                                                                <% }else if(stickAgenda.hasil=='CANCEL' ) {%>
-                                                                    <a href="/dashboard/status/cancel"><button
-                                                                            class="btn-danger">
-                                                                            <%= stickAgenda.hasil %>
-                                                                        </button>
-                                                                    </a>
-                                                                    <% }else if(stickAgenda.hasil=='NOT YET' ) {%>
-                                                                        <a href="/dashboard/status/notyet"><button
-                                                                                class="btn-secondary">
-                                                                                <%= stickAgenda.hasil %>
-                                                                            </button>
-                                                                        </a>
-                                                                        <% }else if(stickAgenda.hasil=='ON-GOING' ) {%>
-                                                                            <a href="/dashboard/status/ongoing"><button
-                                                                                    class="btn-warning">
-                                                                                    <%= stickAgenda.hasil %>
-                                                                                </button>
-                                                                            </a>
-                                                                            <% } %>
-                                                    </td>
 
 
-                                                    <% if(IsAdmin !='guest' ) {%>
-                                                        <td class="text-center align-middle">
-                                                            <!-- <div class="d-flex"> -->
-                                                            <a href="/dashboard/edit/<%= stickAgenda.id %>"><button
-                                                                    class="btn btn-info">Edit</button></a>
-                                                            <!-- <div class="invisible">...</div> -->
-                                                        </td>
-                                                        <td class="text-center align-middle">
 
-                                                            <form
-                                                                action="/dashboard/<%= stickAgenda.id %>?_method=delete"
-                                                                method="post">
-
-                                                                <button type="button" class="btn btn-danger"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#exampleModal<%= stickAgenda.id %>">Hapus</button>
-
-                                                                <!-- Modal -->
-                                                                <div class="modal fade"
-                                                                    id="exampleModal<%= stickAgenda.id %>" tabindex="-1"
-                                                                    aria-labelledby="exampleModalLabel"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content text-dark">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title"
-                                                                                    id="exampleModalLabel">Yakin? </h5>
-                                                                                <button type="button" class="btn-close"
-                                                                                    data-bs-dismiss="modal"
-                                                                                    aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                Apakah Anda Tetap Ingin Menghapus
-                                                                                Agenda <i><%= stickAgenda.dailyAgenda %> </i>?
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                    class="btn btn-secondary"
-                                                                                    data-bs-dismiss="modal">Close</button>
-                                                                                <button type="submit"
-                                                                                    class="btn btn-danger">Hapus</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </form>
-                                                        </td>
-                                                        
-                                                        <% } %>
-                                                            <% } %>
-                                                                <% } %>
+            
+                                                            
 
                                                                     <% for(let agenda of dataAgenda) {%>
 
@@ -587,7 +635,9 @@
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 Apakah Anda Tetap Ingin Menghapus
-                                                                                Agenda <i><%= agenda.dailyAgenda %> </i>?
+                                                                                Agenda <i>
+                                                                                    <%= agenda.dailyAgenda %>
+                                                                                </i>?
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <button type="button"
