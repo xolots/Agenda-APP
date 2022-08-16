@@ -14,10 +14,12 @@ router.get('/januari', IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/j', 'J')
     const IsAdmin = req.user.username
 
-    res.render('month', { bulan, urlPath, IsAdmin })
+    res.render('month', { bulan, urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/februari',IsLoggedIn, async(req, res) => {
@@ -26,11 +28,13 @@ router.get('/februari',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/f', 'F')
     const IsAdmin = req.user.username
 
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/maret',IsLoggedIn, async(req, res) => {
@@ -39,11 +43,13 @@ router.get('/maret',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/m', 'M')
     const IsAdmin = req.user.username
 
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/april',IsLoggedIn, async(req, res) => {
@@ -52,11 +58,13 @@ router.get('/april',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/a', 'A')
     const IsAdmin = req.user.username
 
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/mei',IsLoggedIn, async(req, res) => {
@@ -65,10 +73,12 @@ router.get('/mei',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/m', 'M')
     const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/juni',IsLoggedIn, async(req, res) => {
@@ -77,10 +87,12 @@ router.get('/juni',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/j', 'J')
     const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/Juli',IsLoggedIn, async(req, res) => {
@@ -89,10 +101,12 @@ router.get('/Juli',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/j', 'J')
     const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/agustus',IsLoggedIn, async(req, res) => {
@@ -101,10 +115,12 @@ router.get('/agustus',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/a', 'A')
     const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet  })
 })
 
 router.get('/september',IsLoggedIn, async(req, res) => {
@@ -113,10 +129,12 @@ router.get('/september',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/s', 'S')
     const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/oktober',IsLoggedIn, async(req, res) => {
@@ -125,10 +143,12 @@ router.get('/oktober',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/o', 'O')
     const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/november',IsLoggedIn, async(req, res) => {
@@ -137,10 +157,12 @@ router.get('/november',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/n', 'N')
     const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 router.get('/desember',IsLoggedIn, async(req, res) => {
@@ -149,10 +171,12 @@ router.get('/desember',IsLoggedIn, async(req, res) => {
     //     req.flash('success', 'Data tidak ada')
     //     return res.redirect('/dashboard')
     // }
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
     const urlPath = req.path.replace('/d', 'D')
     const IsAdmin = req.user.username
 
-    res.render('month', { bulan,urlPath, IsAdmin })
+    res.render('month', { bulan,urlPath, IsAdmin,findNotYet,jumlahAgendaNotYet })
 })
 
 

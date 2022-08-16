@@ -12,7 +12,9 @@ router.get('/:categoryy',IsLoggedIn, async(req, res) => {
     const category = await Agenda.find({'category': {$regex:`${categoryy}`}})
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    res.render('category', {urlPath, category, IsAdmin, categoryy})
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('category', {urlPath, category, IsAdmin,findNotYet,jumlahAgendaNotYet, categoryy})
 })
 
 module.exports = router

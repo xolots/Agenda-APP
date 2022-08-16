@@ -45,7 +45,7 @@
     <!-- navbar -->
     <div class="d-flex flex-column mb-4">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">Agenda</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -57,7 +57,28 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">Reminder
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                                    <%= jumlahAgendaNotYet %>
+                                        <span class="visually-hidden">unread messages</span>
+
+                            </a>
+                            <ul class="dropdown-menu">
+                                <% for(let notYetAgenda of findNotYet) {%>
+                                    <li><a class="dropdown-item" href="#">
+                                            <%= notYetAgenda.dailyAgenda %>
+                                        </a></li>
+                                    <% } %>
+                            </ul>
+                        </li>
+
                     </ul>
+
+
 
 
                     <ul class="navbar-nav ms-auto">
@@ -65,6 +86,10 @@
                         <% if(IsAdmin !='guest' ) {%>
                             <li class="nav-item">
                                 <a class="nav-link" href="/dashboard/changepass">Ganti Password</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard/changeemail">Ganti Email</a>
                             </li>
 
                             <li class="nav-item">
@@ -86,194 +111,295 @@
     </div>
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-3 d-flex-inline">
-
-                <form action="/dashboard/tanggal/year" method="post">
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="inputGroupSelect01">TAHUN</label>
-                        <select class="form-select" id="inputGroupSelect01" name="year">
-                            <option selected value="">Pilih...</option>
-                            <option value="2022">
-                                2022
-                            </option>
-                            <option value="2023">
-                                2023
-                            </option>
-                            <option value="2024">
-                                2024
-                            </option>
-                            <option value="2025">
-                                2025
-                            </option>
-
-                            <option value="2026">
-                                2026
-                            </option>
-                            <option value="2027">
-                                2027
-                            </option>
-                            <option value="2028">
-                                2028
-                            </option>
-                            <option value="2029">
-                                2029
-                            </option>
-                            <option value="2030">
-                                2030
-                            </option>
-
-                        </select>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="inputGroupSelect02">BULAN</label>
-                        <select class="form-select" id="inputGroupSelect02" name="month">
-                            <option selected value="">Pilih...</option>
-
-                            <option value="januari">
-                                Januari
-                            </option>
-                            <option value="februari">
-                                Februari
-                            </option>
-                            <option value="maret">
-                                Maret
-                            </option>
-                            <option value="april">
-                                April
-                            </option>
-                            <option value="mei">
-                                Mei
-                            </option>
-                            <option value="juni">
-                                Juni
-                            </option>
-                            <option value="juli">
-                                Juli
-                            </option>
-                            <option value="agustus">
-                                Agustus
-                            </option>
-                            <option value="september">
-                                September
-                            </option>
-                            <option value="oktober">
-                                Oktober
-                            </option>
-                            <option value="november">
-                                November
-                            </option>
-                            <option value="desember">
-                                Desember
-                            </option>
 
 
+        <h2 class="d-flex justify-content-center"></h2>
+        <h2 class="d-flex justify-content-center"></h2>
+        <h2 class="d-flex justify-content-center"></h2>
+        <h2 class="d-flex justify-content-center"></h2>
+        <div class="container">
+            <div class="row">
+                <div class="col mb-5">
 
-                        </select>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="inputGroupSelect02">CATEGORY</label>
-                        <select class="form-select" id="inputGroupSelect02" name="category">
-                            <option selected value="">Pilih...</option>
-
-                            <option value="WORK">
-                                WORK
-                            </option>
-                            <option value="PERSONAL">
-                                PERSONAL
-                            </option>
-                            <option value="L & D">
-                                L & D
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="inputGroupSelect02">STATUS</label>
-                        <select class="form-select" id="inputGroupSelect02" name="status">
-                            <option selected value="">Pilih...</option>
-
-                            <option value="DONE">
-                                DONE
-                            </option>
-                            <option value="ONGOING">
-                                ON-GOING
-                            </option>
-                            <option value="NOTYET">
-                                NOT-YET
-                            </option>
-                            <option value="DELAY">
-                                DELAY
-                            </option>
-                            <option value="CANCEL">
-                                CANCEL
-                            </option>
-                        </select>
-                    </div>
-
-
-                    <button class="btn btn-primary">Cari..</button>
-                </form>
-
-
-
-
-
-
-
-
-
-
-                <!-- versi lama -->
-                <!-- <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        BULAN
-                    </button>
-                    <ul class="dropdown-menu">
-
-                        <li><a class="dropdown-item" href="/dashboard/month/januari">Januari</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/februari">Februari</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/maret">Maret</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/april">April</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/mei">Mei</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/juni">Juni</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/juli">Juli</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/agustus">Agustus</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/september">September</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/oktober">Oktober</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/november">November</a></li>
-                        <li><a class="dropdown-item" href="/dashboard/month/desember">Desember</a></li>
-                    </ul>
-                </div> -->
-
-                <!-- Status -->
-
-
+                </div>
             </div>
         </div>
-    </div>
+
+        <!-- Toast Remainder -->
+        <!-- <div role="alert" aria-live="assertive" aria-atomic="true" class="toast fixed-bottom m-5 ms-auto"
+            data-bs-autohide="false">
+            <div class="toast-header">
+                <img src="https://i.ibb.co/QY6kFyB/a8ee00c3-68cd-41a9-bf65-1b1217d882c9.png"
+                    class="rounded me-2 img-fluid" alt="...">
+                <strong class="me-auto">Remainder</strong>
+                <small>11 mins ago</small> -->
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Kamu Mempunyai <strong>
+                    <%= // jumlahAgendaNotYet %> AGENDA YANG BELUM DIKERJAKAN
+                </strong>
+            </div>
+        </div> -->
+
+        <!-- Toast Remainder -->
+
+
+        <!-- Dropdown Menu -->
+
+
+
+
+
+        <div class="container h-100 d-flex-inline">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-10 col-md-8 col-lg-6">
+
+                </div>
+            </div>
+
+            <!-- <div class="container mt-3 w-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-10 col-md-8 col-lg-6">
+                    
+                    <a href="/dashboard/month/agustus"><button type="button"
+                            class="btn btn-primary">Agustus</button></a>
+                    <a href="/dashboard/month/september"><button type="button"
+                            class="btn btn-primary">September</button></a>
+                    <a href="/dashboard/month/oktober"><button type="button"
+                            class="btn btn-primary">Oktober</button></a>
+                    <a href="/dashboard/month/november"><button type="button"
+                            class="btn btn-primary">November</button></a>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-3 w-25">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-10 col-md-8 col-lg-6">
+                    <a href="/dashboard/month/desember"><button type="button"
+                            class="btn btn-primary">Desember</button></a>
+
+                </div>
+            </div>
+        </div> -->
+
+
+
+
+
+            <!-- Reminder -->
+
+
+
+            <!-- AKhir Reminder -->
+
+            <div class="container">
+                <div class="row justify-content-center mt-4">
+                    <div class="col-sm-2">
+
+                        <form action="/dashboard/tanggal/year" method="post">
+                            <div class="input-group form-group mb-3">
+                                <label class="input-group" for="inputGroupSelect01">TAHUN</label>
+                                <select class="form-select" id="inputGroupSelect01" name="year">
+                                    <option selected value="">Pilih...</option>
+                                    <option value="2022">
+                                        2022
+                                    </option>
+                                    <option value="2023">
+                                        2023
+                                    </option>
+                                    <option value="2024">
+                                        2024
+                                    </option>
+                                    <option value="2025">
+                                        2025
+                                    </option>
+
+                                    <option value="2026">
+                                        2026
+                                    </option>
+                                    <option value="2027">
+                                        2027
+                                    </option>
+                                    <option value="2028">
+                                        2028
+                                    </option>
+                                    <option value="2029">
+                                        2029
+                                    </option>
+                                    <option value="2030">
+                                        2030
+                                    </option>
+
+                                </select>
+                            </div>
+                    </div>
+
+                    <div class="col-sm-2">
+
+
+                        <div class="input-group mb-3">
+                            <label class="input-group" for="inputGroupSelect02">BULAN</label>
+                            <select class="form-select" id="inputGroupSelect02" name="month">
+                                <option selected value="">Pilih...</option>
+
+                                <option value="januari">
+                                    Januari
+                                </option>
+                                <option value="februari">
+                                    Februari
+                                </option>
+                                <option value="maret">
+                                    Maret
+                                </option>
+                                <option value="april">
+                                    April
+                                </option>
+                                <option value="mei">
+                                    Mei
+                                </option>
+                                <option value="juni">
+                                    Juni
+                                </option>
+                                <option value="juli">
+                                    Juli
+                                </option>
+                                <option value="agustus">
+                                    Agustus
+                                </option>
+                                <option value="september">
+                                    September
+                                </option>
+                                <option value="oktober">
+                                    Oktober
+                                </option>
+                                <option value="november">
+                                    November
+                                </option>
+                                <option value="desember">
+                                    Desember
+                                </option>
+
+
+
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-2">
+                        <div class="input-group mb-3">
+                            <label class="input-group" for="inputGroupSelect02">CATEGORY</label>
+                            <select class="form-select" id="inputGroupSelect02" name="category">
+                                <option selected value="">Pilih...</option>
+
+                                <option value="WORK">
+                                    WORK
+                                </option>
+                                <option value="PERSONAL">
+                                    PERSONAL
+                                </option>
+                                <option value="L & D">
+                                    L & D
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-2">
+                        <div class="input-group mb-3">
+                            <label class="input-group" for="inputGroupSelect02">STATUS</label>
+                            <select class="form-select" id="inputGroupSelect02" name="status">
+                                <option selected value="">Pilih...</option>
+
+                                <option value="DONE">
+                                    DONE
+                                </option>
+                                <option value="ONGOING">
+                                    ON-GOING
+                                </option>
+                                <option value="NOTYET">
+                                    NOT-YET
+                                </option>
+                                <option value="DELAY">
+                                    DELAY
+                                </option>
+                                <option value="CANCEL">
+                                    CANCEL
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 mt-4">
+
+                        <button class="btn btn-primary">Cari..</button>
+                    </div>
+                    </form>
+
+
+
+
+
+
+
+
+
+
+                    <!-- versi lama -->
+                    <!-- <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                BULAN
+                            </button>
+                            <ul class="dropdown-menu">
+
+                                <li><a class="dropdown-item" href="/dashboard/month/januari">Januari</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/februari">Februari</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/maret">Maret</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/april">April</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/mei">Mei</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/juni">Juni</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/juli">Juli</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/agustus">Agustus</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/september">September</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/oktober">Oktober</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/november">November</a></li>
+                                <li><a class="dropdown-item" href="/dashboard/month/desember">Desember</a></li>
+                            </ul>
+                        </div> -->
+
+                    <!-- Status -->
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col mt-3 d-flex justify-content-center">
+                    <a href="/dashboard/status/done"><button type="button" class="btn btn-success me-2">DONE</button></a>
+                    <a href="/dashboard/status/ongoing"><button type="button"
+                            class="btn btn-warning me-2">ON-GOING</button></a>
+                    <a href="/dashboard/status/notyet"><button type="button" class="btn btn-secondary me-2">NOT
+                            YET</button></a>
+                    <a href="/dashboard/status/delay"><button type="button" class="btn btn-primary me-2">DELAY</button></a>
+                    <a href="/dashboard/status/cancel"><button type="button" class="btn btn-danger me-2">CANCEL</button></a>
+                </div>
+            </div>
+        </div>
 
 
     <div class="container">
-        <div class="row">
-            <div class="col mt-3 d-flex-inline">
-                <a href="/dashboard/status/done"><button type="button" class="btn btn-success">DONE</button></a>
-                <a href="/dashboard/status/ongoing"><button type="button" class="btn btn-warning">ON-GOING</button></a>
-                <a href="/dashboard/status/notyet"><button type="button" class="btn btn-secondary">NOT
-                        YET</button></a>
-                <a href="/dashboard/status/delay"><button type="button" class="btn btn-primary">DELAY</button></a>
-                <a href="/dashboard/status/cancel"><button type="button" class="btn btn-danger">CANCEL</button></a>
-            </div>
-        </div>
-    </div>
 
-
-    <div class="container">
-
-        <h2 class="d-flex justify-content-center">Daftar Agenda Dengan Category <%= categoryy %>
+        <h2 class="d-flex justify-content-center mt-4">Daftar Agenda Dengan Category <%= categoryy %>
         </h2>
         <p><a href="/dashboard">Kembali Ke Dashboard</a></p>
         <% if(success && success.length) {%>

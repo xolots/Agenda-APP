@@ -14,7 +14,10 @@ router.get('/:year/:month', IsLoggedIn, async (req, res) => {
     const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' } })
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin })
+
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin,jumlahAgendaNotYet,findNotYet })
 })
 
 router.get('/:year/:month/:category', IsLoggedIn, async (req, res) => {
@@ -22,7 +25,10 @@ router.get('/:year/:month/:category', IsLoggedIn, async (req, res) => {
     const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' },category: `${category}` })
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin })
+
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin,jumlahAgendaNotYet,findNotYet })
 })
 
 router.get('/:year/:month/:category/:status', IsLoggedIn, async (req, res) => {
@@ -30,7 +36,10 @@ router.get('/:year/:month/:category/:status', IsLoggedIn, async (req, res) => {
     const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' },category: `${category}`, hasil: `${status}` })
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin })
+
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin,jumlahAgendaNotYet,findNotYet })
 })
 
 
