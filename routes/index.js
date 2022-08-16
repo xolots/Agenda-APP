@@ -20,13 +20,15 @@ router.get('/', IsLoggedIn, async (req, res) => {
         sort: {$natural:-1}
       };
 
+
 // console.log(page)      
     const dataAgendaa = await Agenda.paginate({}, options)
+    const stickyAgenda = await Agenda.find({sticky : true})
     // const dataAgendaa3 = await Agenda.paginate({}, options2)
 
     const dataAgenda = dataAgendaa.docs
     // console.log(req.query)
-    // console.log(dataAgendaa3)
+    // console.log(stickyAgenda)
     // console.log(dataAgendaPaginate)
 
     //Mengambil Tanggal
@@ -72,7 +74,7 @@ router.get('/', IsLoggedIn, async (req, res) => {
 
 
 
-    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin, jumlahAgendaNotYet, page })
+    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin, jumlahAgendaNotYet, page, stickyAgenda })
 })
 
 router.get('/navbar', (req, res) => {
