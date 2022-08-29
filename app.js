@@ -71,8 +71,8 @@ app.use('/dashboard/user', listUser)
 app.use('/', login)
 
 app.use((err, req, res, next) => {
-    const {status = 500} = err
-    if(!err.message) message = 'Upss Ada Yang Salah'
+    const { status = 500 } = err
+    if (!err.message) message = 'Upss Ada Yang Salah'
     req.flash('success', `${err.message}`)
     res.redirect('/dashboard')
     // res.status(status).send(err.message)
@@ -85,3 +85,5 @@ app.use('*', (req, res, next) => {
 app.listen(port, () => {
     console.log('server berjalan pada port 3000')
 })
+
+module.exports = app;
