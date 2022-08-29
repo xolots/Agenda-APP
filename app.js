@@ -86,4 +86,3 @@ app.listen(port, () => {
     console.log('server berjalan pada port 3000')
 })
 
-module.exports = app;
