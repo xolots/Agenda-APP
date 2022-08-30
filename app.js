@@ -19,6 +19,8 @@ const status = require('./routes/status')
 const yearMonth = require('./routes/yearMonth')
 const Category = require('./routes/category')
 const listUser = require('./routes/listUser')
+const AppError = require('./AppError')
+const ExpressError = require('./AppError')
 
 
 
@@ -70,11 +72,12 @@ app.use('/dashboard/user', listUser)
 
 app.use('/', login)
 
+
 app.use((err, req, res, next) => {
-    const { status = 500 } = err
+    const { statusCode = 500 } = err
     if (!err.message) message = 'Upss Ada Yang Salah'
-    req.flash('success', `${err.message}`)
-    res.redirect('/dashboard')
+    req.flash('success', err.message)
+    res.status(statusCode).redirect('/dashboard')
     // res.status(status).send(err.message)
 })
 

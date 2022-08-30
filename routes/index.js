@@ -6,7 +6,7 @@ const flash = require('connect-flash')
 const router = express.Router()
 const session = require('express-session')
 const { IsLoggedIn } = require('../middleware')
-const AppError = require('../AppError')
+const ExpressError = require('../AppError')
 const catchAsync = require('../catchAsync')
 
 
@@ -87,10 +87,12 @@ router.get('/navbar', (req, res) => {
 
 router.get('/edit/:id', IsLoggedIn,catchAsync(async (req, res, next) => {
         const { id } = req.params
+        if( !mongoose.Types.ObjectId.isValid(id) ) return next(new ExpressError('ID AGENDA SALAH', 400));
+
         const agenda = await Agenda.findById(id)
-        // if(!agenda){
-        //     return next(new ExpressError('Agenda Tidak Ditemukan'))
-        // }
+        if(!agenda){
+            return next(new ExpressError('Agenda Tidak Ditemukan', 404))
+        }
 
 
         //Mengambil Tanggal
