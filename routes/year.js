@@ -12,7 +12,9 @@ router.get('/:year',IsLoggedIn, async(req, res) => {
     const tahun = await Agenda.find({'date': {$regex:`${year}`}})
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    res.render('year', {urlPath, tahun, IsAdmin})
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('year', {urlPath, tahun,findNotYet, jumlahAgendaNotYet, IsAdmin})
 })
 
 module.exports = router

@@ -14,31 +14,61 @@ router.get('/:year/:month', IsLoggedIn, async (req, res) => {
     const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' } })
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin })
+
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin, jumlahAgendaNotYet, findNotYet })
 })
 
 router.get('/:year/:month/:category', IsLoggedIn, async (req, res) => {
     const { year, month, category } = req.params
-    const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' },category: `${category}` })
+    const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' }, category: `${category}` })
     const urlPath = req.path.replace('/', '')
     const IsAdmin = req.user.username
-    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin })
+
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin, jumlahAgendaNotYet, findNotYet })
 })
 
 router.get('/:year/:month/:category/:status', IsLoggedIn, async (req, res) => {
-    const { year, month, category,status } = req.params
-    const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' },category: `${category}`, hasil: `${status}` })
-    const urlPath = req.path.replace('/', '')
-    const IsAdmin = req.user.username
-    res.render('tanggal', { bulan, urlPath, year, month, IsAdmin })
-})
+    const { year, month, category, status } = req.params
+    if (status == 'NOTYET') {
+        let realStatus = 'NOT YET'
+        const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' }, category: `${category}`, hasil: `${realStatus}` }).sort({ $natural: -1 });
+        const urlPath = req.path.replace('/', '')
+        const IsAdmin = req.user.username
+
+        const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+        const jumlahAgendaNotYet = findNotYet.length
+        return res.render('tanggal', { bulan, urlPath, year, month, IsAdmin, jumlahAgendaNotYet, findNotYet })
+    } else if (status == 'ONGOING') {
+        let realStatus = 'ON-GOING'
+        const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' }, category: `${category}`, hasil: `${realStatus}` }).sort({ $natural: -1 });
+        const urlPath = req.path.replace('/', '')
+        const IsAdmin = req.user.username
+
+        const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+        const jumlahAgendaNotYet = findNotYet.length
+        res.render('tanggal', { bulan, urlPath, year, month, IsAdmin, jumlahAgendaNotYet, findNotYet })
+    } else {
+        const bulan = await Agenda.find({ year: `${year}`, month: { '$regex': `${month}`, $options: 'i' }, category: `${category}`, hasil: `${status}` }).sort({ $natural: -1 });
+        const urlPath = req.path.replace('/', '')
+        const IsAdmin = req.user.username
+
+        const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+        const jumlahAgendaNotYet = findNotYet.length
+        res.render('tanggal', { bulan, urlPath, year, month, IsAdmin, jumlahAgendaNotYet, findNotYet })
+    }
+}
+)
 
 
 
-router.post('/year', (req, res) => {
+router.post('/year', IsLoggedIn, (req, res) => {
     const { year, month, category, status } = req.body
 
-    if (month === '' && year === '' && category === '' && status === ''){
+    if (month === '' && year === '' && category === '' && status === '') {
         req.flash('success', 'Mohon Jangan Kosongkan Opsi')
         res.redirect('/dashboard')
     }
@@ -67,7 +97,7 @@ router.post('/year', (req, res) => {
 
 
 
-     res.redirect(`/dashboard/tanggal/${year}/${month}/${category}/${status}`)
+    res.redirect(`/dashboard/tanggal/${year}/${month}/${category}/${status}`)
 
 })
 

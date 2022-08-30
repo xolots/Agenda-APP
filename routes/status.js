@@ -11,38 +11,47 @@ router.get('/done',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'DONE'}).sort({$natural:-1});
     const IsAdmin = req.user.username
-    res.render('status/done', {urlPath, bulan, IsAdmin})
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('status/done', {urlPath, bulan,jumlahAgendaNotYet,findNotYet, IsAdmin})
 })
 
 router.get('/ongoing',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'ON-GOING'}).sort({$natural:-1});
     const IsAdmin = req.user.username
-
-    res.render('status/done', {urlPath, bulan,IsAdmin})
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('status/done', {urlPath,jumlahAgendaNotYet,findNotYet, bulan,IsAdmin})
 })
 
 router.get('/notyet',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'NOT YET'}).sort({$natural:-1});
     const IsAdmin = req.user.username
-    res.render('status/done', {urlPath, bulan, IsAdmin})
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
+    res.render('status/done', {urlPath,jumlahAgendaNotYet,findNotYet, bulan, IsAdmin})
 })
 
 router.get('/delay',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'DELAY'}).sort({$natural:-1});
     const IsAdmin = req.user.username
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
 
-    res.render('status/done', {urlPath, bulan, IsAdmin})
+    res.render('status/done', {urlPath,jumlahAgendaNotYet,findNotYet, bulan, IsAdmin})
 })
 
 router.get('/cancel',IsLoggedIn, async(req, res) => {
     const urlPath = req.path.replace('/', '')
     const bulan = await Agenda.find({'hasil': 'CANCEL'}).sort({$natural:-1});
     const IsAdmin = req.user.username
+    const findNotYet = await Agenda.find({ 'hasil': 'NOT YET' })
+    const jumlahAgendaNotYet = findNotYet.length
 
-    res.render('status/done', {urlPath, bulan, IsAdmin})
+    res.render('status/done', {urlPath,jumlahAgendaNotYet,findNotYet, bulan, IsAdmin})
 })
 
 module.exports = router

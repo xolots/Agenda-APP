@@ -16,6 +16,7 @@ const AgendaSchema = new mongoose.Schema({
     dailyAgenda: String,
     category: String,
     hasil: String,
+    sticky: Boolean
 })
 
 

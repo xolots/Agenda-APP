@@ -6,6 +6,11 @@ const {IsLoggedIn} = require('../middleware')
 const user = require('../models/user')
 
 router.get('/', async(req, res) => {
+    if(req.isAuthenticated()){
+        return res.redirect('/dashboard')
+    }
+
+
     res.render('users/login')
 })
 
@@ -20,7 +25,9 @@ router.get('/', async(req, res) => {
 // })
 
 
-router.post('/', passport.authenticate('local', {failureFlash: true, failureRedirect: '/', keepSessionInfo: true,}), (req,res) => {
+router.post('/', passport.authenticate('local', {failureFlash: {
+    type: 'success', message: 'Username Atau Password Salah'
+}, failureRedirect: '/', keepSessionInfo: true,}), (req,res) => {
     req.flash('success', `Selamat Datang ${req.user.username}`)
     const redirectUrl = req.session.returnTo || "/dashboard";
     delete req.session.returnTo;

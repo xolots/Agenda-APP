@@ -6,9 +6,11 @@ const flash = require('connect-flash')
 const router = express.Router()
 const session = require('express-session')
 const { IsLoggedIn } = require('../middleware')
+const ExpressError = require('../AppError')
+const catchAsync = require('../catchAsync')
 
 
-router.get('/', IsLoggedIn, async (req, res) => {
+router.get('/', IsLoggedIn,catchAsync(async (req, res) => {
     // const dataAgenda = await Agenda.find({}).sort({$natural:-1}).limit(30);
 
     const page = parseInt(req.query.page || 1)
@@ -17,16 +19,18 @@ router.get('/', IsLoggedIn, async (req, res) => {
     const options = {
         page: page,
         limit: 10,
-        sort: {$natural:-1}
-      };
+        sort: { $natural: -1 }
+    };
 
-// console.log(page)      
+
+    // console.log(page)      
     const dataAgendaa = await Agenda.paginate({}, options)
+    const stickyAgenda = await Agenda.find({ sticky: true })
     // const dataAgendaa3 = await Agenda.paginate({}, options2)
 
     const dataAgenda = dataAgendaa.docs
     // console.log(req.query)
-    // console.log(dataAgendaa3)
+    // console.log(stickyAgenda)
     // console.log(dataAgendaPaginate)
 
     //Mengambil Tanggal
@@ -71,9 +75,8 @@ router.get('/', IsLoggedIn, async (req, res) => {
     const jumlahAgendaNotYet = findNotYet.length
 
 
-
-    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin, jumlahAgendaNotYet, page })
-})
+    res.render('index', { dataAgenda, today, time, mm, tahun, IsAdmin, jumlahAgendaNotYet, findNotYet, page, stickyAgenda })
+}))
 
 router.get('/navbar', (req, res) => {
     res.render('partials/navbar')
@@ -82,52 +85,59 @@ router.get('/navbar', (req, res) => {
 
 
 
-router.get('/edit/:id', IsLoggedIn, async (req, res) => {
-    const { id } = req.params
-    const agenda = await Agenda.findById(id).sort({ $natural: -1 });
+router.get('/edit/:id', IsLoggedIn,catchAsync(async (req, res, next) => {
+        const { id } = req.params
+        if( !mongoose.Types.ObjectId.isValid(id) ) return next(new ExpressError('ID AGENDA SALAH', 400));
 
-    //Mengambil Tanggal
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-    today = dd + '/' + mm + '/' + yyyy;
-
-    //Mengambil Waktu
-    var date = new Date();
-    var options = { hour: '2-digit', minute: '2-digit', hour12: false };
-    const time = date.toLocaleTimeString(['en-US'], options)
+        const agenda = await Agenda.findById(id)
+        if(!agenda){
+            return next(new ExpressError('Agenda Tidak Ditemukan', 404))
+        }
 
 
-    const IsAdmin = req.user.username
+        //Mengambil Tanggal
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = dd + '/' + mm + '/' + yyyy;
 
-    res.render('edit', { agenda, time, IsAdmin, today })
-})
+        //Mengambil Waktu
+        var date = new Date();
+        var options = { hour: '2-digit', minute: '2-digit', hour12: false };
+        const time = date.toLocaleTimeString(['en-US'], options)
 
-router.post('/', IsLoggedIn, async (req, res) => {
+
+        const IsAdmin = req.user.username
+
+        return res.render('edit', { agenda, time, IsAdmin, today })
+
+}))
+
+router.post('/', IsLoggedIn, catchAsync( async (req, res) => {
     const body = req.body
     const createNew = new Agenda(body)
     await createNew.save()
     req.flash('success', 'Berhasil Menambah Agenda Baru')
     res.redirect('/dashboard')
-})
+}))
 
-router.delete('/:id', IsLoggedIn, async (req, res) => {
+router.delete('/:id', IsLoggedIn, catchAsync(async (req, res) => {
     const { id } = req.params
     const hacaripus = await Agenda.findByIdAndDelete(id)
     req.flash('success', 'Agenda Berhasil Dihapus')
     res.redirect('/dashboard')
-})
+}))
 
-router.put('/edit/:id', IsLoggedIn, async (req, res) => {
+router.put('/edit/:id', IsLoggedIn,catchAsync( async (req, res) => {
     const { id } = req.params
     const editData = await Agenda.findByIdAndUpdate(id, req.body)
     req.flash('success', 'Berhasil Mengedit Agenda')
     res.redirect('/dashboard')
-})
+}))
 
 router.get('/new', IsLoggedIn, async (req, res) => {
-    const dataAgenda = await Agenda.find({})
+    // const dataAgenda = await Agenda.find({})
 
     //Mengambil Tanggal
     var today = new Date();
